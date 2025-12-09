@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test';
 
-test.only('Browser context - Playwright test', async ({browser}) =>{
+test('Browser context - Playwright test', async ({browser}) =>{
 
     //chrome - plugins / cookies
     // const context = await browser.newContext();
@@ -28,7 +28,7 @@ test.only('Browser context - Playwright test', async ({browser}) =>{
     const products = page.locator(".card-body a");
 
     const iPhone =  await products.first().textContent();
-    await products.nth(1).click();
+    console.log(await products.nth(1).textContent());
     console.log(iPhone)
 
     const allTitle = await products.allTextContents();
@@ -42,12 +42,31 @@ test.only('Browser context - Playwright test', async ({browser}) =>{
 })
 
 
-test('page fixtures - playwright test', async ({page})=>{
+test.only('UI controls - playwright test', async ({page})=>{
 
-    await page.goto("https://google.com/");
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
-    expect(await page.title()).toBe("Google");
-    //await expect(page).toHaveTitle("Google"); //5000
+    //css, xpath
+    const userName = page.locator("#username")
+    const signInBtn = page.locator("#signInBtn");
+    const dropDown = page.locator('select.form-control');
+    await dropDown.selectOption("consult");
+    await page.locator(".radiotextsty").nth(1).click();
+    await expect(await page.locator(".radiotextsty").nth(1)).toBeChecked();
+    console.log(await page.locator(".radiotextsty").nth(1).allTextContents());
+    await page.locator("#okayBtn").click();
+    await page.locator("#terms").click();
+    await expect(await page.locator("#terms")).toBeChecked();
+    await page.locator("#terms").uncheck();
+    await expect(await page.locator("#terms").isChecked()).toBeFalsy();
 
+    //assertion
+
+
+    await page.pause();
+
+    // await userName.fill("rahulshettyacademyqa");
+    // await page.locator("[type='password']").fill("learning");
+    // await signInBtn.click();
 
 })
