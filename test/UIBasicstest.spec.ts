@@ -49,6 +49,7 @@ test.only('UI controls - playwright test', async ({page})=>{
     //css, xpath
     const userName = page.locator("#username")
     const signInBtn = page.locator("#signInBtn");
+    const documentLink = page.locator("[href*='documents-request']")
     const dropDown = page.locator('select.form-control');
     await dropDown.selectOption("consult");
     await page.locator(".radiotextsty").nth(1).click();
@@ -58,15 +59,22 @@ test.only('UI controls - playwright test', async ({page})=>{
     await page.locator("#terms").click();
     await expect(await page.locator("#terms")).toBeChecked();
     await page.locator("#terms").uncheck();
-    await expect(await page.locator("#terms").isChecked()).toBeFalsy();
+    expect(await page.locator("#terms").isChecked()).toBeFalsy();
+    await expect(documentLink).toHaveAttribute('class','blinkingText');
 
-    //assertion
-
-
-    await page.pause();
-
-    // await userName.fill("rahulshettyacademyqa");
+        // await userName.fill("rahulshettyacademyqa");
     // await page.locator("[type='password']").fill("learning");
     // await signInBtn.click();
 
 })
+
+test.only('Child window tab',async({browser})=>{
+
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    const documentLink = page.locator("[href*='documents-request']");
+    await documentLink.click();
+
+});
