@@ -42,7 +42,7 @@ test('Browser context - Playwright test', async ({browser}) =>{
 })
 
 
-test.only('UI controls - playwright test', async ({page})=>{
+test('UI controls - playwright test', async ({page})=>{
 
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
@@ -68,7 +68,7 @@ test.only('UI controls - playwright test', async ({page})=>{
 
 })
 
-test.only('Child window tab',async({browser})=>{
+test('Child window tab',async({browser})=>{
 
     const context = await browser.newContext();
     const page = await context.newPage();
