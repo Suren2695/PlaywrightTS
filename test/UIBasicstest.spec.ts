@@ -12,6 +12,7 @@ test('Browser context - Playwright test', async ({browser}) =>{
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
     //css, xpath
+    
     const userName = page.locator("#username")
     const signInBtn = page.locator("#signInBtn");
     await userName.fill("rahulshettyacademyqa");
